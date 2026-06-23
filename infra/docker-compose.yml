@@ -1,0 +1,33 @@
+name: forkflow
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${FORKFLOW_POSTGRES_DB}
+      POSTGRES_USER: ${FORKFLOW_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${FORKFLOW_POSTGRES_PASSWORD}
+    ports:
+      - "${FORKFLOW_POSTGRES_PORT}:5432"
+    volumes:
+      - forkflow_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "${FORKFLOW_REDIS_PORT}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  forkflow_postgres_data:
