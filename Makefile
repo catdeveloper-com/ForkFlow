@@ -6,42 +6,46 @@ PIP := $(PYTHON) -m pip
 RUFF := $(VENV)/bin/ruff
 PYTEST := $(VENV)/bin/pytest
 COMPOSE := docker compose --env-file .env -f infra/docker-compose.yml
+AUTH_MODULE := services.auth.app.main:app
 
 .DEFAULT_GOAL := help
 
-.PHONY: help setup install lint format test check up down logs
+.PHONY: help setup install lint format test check up down logs run-auth
 
-help: ## Show available commands.
+help: ## Показать доступные команды.
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ {printf "%-12s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-setup: ## Create the local Python virtual environment.
+setup: ## Создать локальное Python-виртуальное окружение.
 	python3 -m venv $(VENV)
-	@echo "Created $(VENV). Activate it manually with: source $(VENV)/bin/activate"
+	@echo "Создано $(VENV). Активируй окружение вручную: source $(VENV)/bin/activate"
 
-install: ## Install development dependencies into .venv.
+install: ## Установить зависимости для разработки в .venv.
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements-dev.txt
 
-lint: ## Run Ruff checks.
+lint: ## Запустить проверки Ruff.
 	$(RUFF) check .
 
-format: ## Format Python files with Ruff.
+format: ## Отформатировать Python-файлы через Ruff.
 	$(RUFF) format .
 
-test: ## Run tests when they are present.
+test: ## Запустить тесты, если они есть.
 	@if find services -type f -name 'test_*.py' -print -quit | grep -q .; then \
 		$(PYTEST); \
 	else \
-		echo "No tests are present yet."; \
+		echo "Тестов пока нет."; \
 	fi
 
-check: lint test ## Run linting and tests.
+check: lint test ## Запустить линтер и тесты.
 
-up: ## Start local PostgreSQL and Redis.
+up: ## Запустить локальные PostgreSQL и Redis.
 	$(COMPOSE) up -d
 
-down: ## Stop local infrastructure.
+down: ## Остановить локальную инфраструктуру.
 	$(COMPOSE) down
 
-logs: ## Follow local infrastructure logs.
+logs: ## Читать логи локальной инфраструктуры.
 	$(COMPOSE) logs -f
+
+run-auth: ## Запустить health-check endpoint Auth-сервиса на порту 8000.
+	$(PYTHON) -m uvicorn $(AUTH_MODULE) --port 8000

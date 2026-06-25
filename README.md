@@ -7,9 +7,10 @@ event-driven integration, testing, and observability.
 
 ## Current stage
 
-This foundation stage provides shared developer tooling and local PostgreSQL
-and Redis containers. It intentionally contains no application services,
-HTTP endpoints, database models, migrations, or business logic.
+This stage provides shared developer tooling, local PostgreSQL and Redis
+containers, and an executable Auth service health check. It intentionally
+contains no business endpoints, database models, migrations, or authentication
+flows.
 
 `roadmap.pdf` is a legacy architectural source. It may retain a historic
 project name; ForkFlow is the only current project name for repository
@@ -27,6 +28,7 @@ cp .env.example .env
 make setup
 make install
 make up
+make run-auth
 ```
 
 `make setup` creates `.venv`; activate it manually in your shell if you need
@@ -47,6 +49,7 @@ make check
 make up
 make down
 make logs
+make run-auth
 ```
 
 ## Local infrastructure
@@ -65,8 +68,7 @@ deliberately deferred until a concrete product scenario requires them.
 ```text
 ForkFlow/
 ├── infra/              # Local development infrastructure
-├── services/
-│   └── auth/           # Documentation for the future Auth service boundary
+├── services/auth/      # Auth service health-check skeleton and documentation
 ├── .env.example        # Safe local configuration template
 ├── Makefile            # Shared developer commands
 ├── pyproject.toml      # Ruff and pytest configuration
@@ -75,6 +77,6 @@ ForkFlow/
 
 ## Next milestone
 
-The next focused change can introduce an executable Auth service skeleton with
-a health check and its first tests. Registration, credentials, tokens, data
-models, and migrations remain outside this foundation stage.
+The next focused change can introduce Auth configuration and persistence.
+Registration, credentials, tokens, data models, and migrations remain outside
+the current scope.

@@ -15,4 +15,5 @@ skip-magic-trailing-comma = false
 [tool.pytest.ini_options]
 addopts = "-ra"
 python_files = ["test_*.py"]
+pythonpath = ["."]
 testpaths = ["services"]

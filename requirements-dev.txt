@@ -1,3 +1,5 @@
-# Development tooling only. Runtime dependencies are introduced with services.
+# Shared development tooling. The Auth runtime dependencies are kept with its service.
+-r services/auth/requirements.txt
+httpx==0.28.1
 pytest==8.3.5
 ruff==0.11.0
