@@ -1,4 +1,4 @@
-# Shared development tooling. The Auth runtime dependencies are kept with its service.
+# Общие инструменты разработки. Runtime-зависимости Auth-сервиса хранятся внутри сервиса.
 -r services/auth/requirements.txt
 httpx==0.28.1
 pytest==8.3.5
