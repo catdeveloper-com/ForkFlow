@@ -891,6 +891,7 @@ The human developer should be able to explain every important architectural deci
 ForkFlow is the current project name.
 roadmap.pdf may contain the old DevPulse name and is used only as an architectural reference.
 ForkFlow should be used exclusively in all new files, Docker names, directories, documentation, variables, and READMEs.
+Do not commit the PR after writing the code, leave the written code for manual review.
 
 ## Docstrings & comments
 Style - Google
