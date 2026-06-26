@@ -8,9 +8,11 @@ class RegisterUserCommand:
 
     Args:
         email: Email-адрес в сыром виде, полученный от внешнего входа.
+        password: Пароль в сыром виде, полученный от внешнего входа.
     """
 
     email: str
+    password: str
 
 
 @dataclass(frozen=True, slots=True)
