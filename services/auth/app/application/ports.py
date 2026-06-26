@@ -1,7 +1,7 @@
 from typing import Protocol
 
 from services.auth.app.domain.entities import User
-from services.auth.app.domain.value_objects import Email
+from services.auth.app.domain.value_objects import Email, PasswordHash, RawPassword
 
 
 class UserRepository(Protocol):
@@ -12,3 +12,10 @@ class UserRepository(Protocol):
 
     async def add(self, user: User) -> None:
         """Сохранить пользователя."""
+
+
+class PasswordHasher(Protocol):
+    """Порт хеширования пароля для сценариев Auth-сервиса."""
+
+    def hash(self, password: RawPassword) -> PasswordHash:
+        """Создать безопасный хеш пароля."""

@@ -4,3 +4,11 @@ class DomainError(Exception):
 
 class InvalidEmailError(DomainError):
     """Ошибка некорректного email-адреса."""
+
+
+class WeakPasswordError(DomainError):
+    """Ошибка слабого пароля."""
+
+
+class InvalidPasswordHashError(DomainError):
+    """Ошибка некорректного хеша пароля."""
