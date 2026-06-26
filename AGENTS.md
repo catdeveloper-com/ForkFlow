@@ -887,11 +887,19 @@ Do not hide complexity behind generated code.
 
 The human developer should be able to explain every important architectural decision in an interview.
 
+## 18. Git workflow
+
+- For feature PR work, do not commit immediately after implementation.
+- After making changes, run relevant checks and show a diff/status summary.
+- Wait for explicit human approval before staging or committing.
+- Treat commands like "коммить", "закоммить", or "можно коммитить" as explicit approval.
+
+The agent must never run `git add` or `git commit` unless the human explicitly asks to commit the current changes.
+
 ## Other
 ForkFlow is the current project name.
 roadmap.pdf may contain the old DevPulse name and is used only as an architectural reference.
 ForkFlow should be used exclusively in all new files, Docker names, directories, documentation, variables, and READMEs.
-Do not commit the PR after writing the code, leave the written code for manual review.
 
 ## Docstrings & comments
 Style - Google
