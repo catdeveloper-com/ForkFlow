@@ -1,3 +1,24 @@
+[project]
+name = "forkflow"
+version = "0.1.0"
+description = "Учебный production-like backend-проект ForkFlow."
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi==0.115.12",
+    "pydantic-settings==2.8.1",
+    "uvicorn==0.34.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx==0.28.1",
+    "pytest==8.3.5",
+    "ruff==0.11.0",
+]
+
+[tool.uv]
+package = false
+
 [tool.ruff]
 target-version = "py312"
 line-length = 100

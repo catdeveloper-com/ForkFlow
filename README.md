@@ -1,27 +1,30 @@
 # ForkFlow
 
-ForkFlow is an educational, production-like microservice social network for
-developers. The repository is being built incrementally to demonstrate
-maintainable FastAPI services, asynchronous Python, PostgreSQL, Redis,
-event-driven integration, testing, and observability.
+ForkFlow — учебный production-like микросервисный проект: социальная сеть для
+разработчиков. Репозиторий развивается маленькими PR, чтобы постепенно
+практиковать FastAPI, async Python, PostgreSQL, Redis, событийную интеграцию,
+тестирование, наблюдаемость и чистую архитектуру.
 
-## Current stage
+## Текущий этап
 
-This stage provides shared developer tooling, local PostgreSQL and Redis
-containers, and an executable Auth service health check. It intentionally
-contains no business endpoints, database models, migrations, or authentication
-flows.
+Сейчас в репозитории есть общие инструменты разработки, локальные контейнеры
+PostgreSQL и Redis, healthcheck Auth-сервиса, доменная модель регистрации и
+application use case регистрации пользователя.
 
-`roadmap.pdf` is a legacy architectural source. It may retain a historic
-project name; ForkFlow is the only current project name for repository
-artifacts and documentation.
+В проекте ещё нет HTTP endpoint регистрации, моделей базы данных, миграций,
+JWT, хеширования паролей и реального хранилища пользователей.
 
-## Prerequisites
+`roadmap.pdf` — legacy-источник архитектурного материала. В нём может
+встречаться старое имя проекта; во всех новых артефактах и документации
+используется только ForkFlow.
+
+## Требования
 
 - Python 3.12+
-- Docker Desktop with Docker Compose v2
+- uv
+- Docker Desktop с Docker Compose v2
 
-## Quick start
+## Быстрый старт
 
 ```bash
 cp .env.example .env
@@ -31,14 +34,16 @@ make up
 make run-auth
 ```
 
-`make setup` creates `.venv`; activate it manually in your shell if you need
-to run Python commands directly:
+`make setup` создаёт `.venv`. Если нужно запускать Python-команды напрямую,
+активируй окружение вручную:
 
 ```bash
 source .venv/bin/activate
 ```
 
-## Common commands
+Зависимости управляются через `uv`, а точные версии фиксируются в `uv.lock`.
+
+## Частые команды
 
 ```bash
 make help
@@ -52,31 +57,31 @@ make logs
 make run-auth
 ```
 
-## Local infrastructure
+## Локальная инфраструктура
 
-`infra/docker-compose.yml` starts only the dependencies required by the first
-service milestones:
+`infra/docker-compose.yml` запускает только зависимости, нужные для первых
+этапов проекта:
 
-- PostgreSQL: the future source of truth for service-owned data;
-- Redis: a disposable cache and temporary-state store.
+- PostgreSQL: будущий source of truth для данных сервисов;
+- Redis: disposable cache и хранилище временного состояния.
 
-Kafka, RabbitMQ, Celery, gateway, monitoring, and additional services are
-deliberately deferred until a concrete product scenario requires them.
+Kafka, RabbitMQ, Celery, gateway, monitoring и дополнительные сервисы
+осознанно отложены до конкретного продуктового сценария.
 
-## Repository layout
+## Структура репозитория
 
 ```text
 ForkFlow/
-├── infra/              # Local development infrastructure
-├── services/auth/      # Auth service health-check skeleton and documentation
-├── .env.example        # Safe local configuration template
-├── Makefile            # Shared developer commands
-├── pyproject.toml      # Ruff and pytest configuration
-└── requirements-dev.txt
+├── infra/              # Локальная инфраструктура разработки
+├── services/auth/      # Auth-сервис
+├── .env.example        # Безопасный шаблон локальной конфигурации
+├── Makefile            # Общие команды разработки
+├── pyproject.toml      # Метаданные проекта, зависимости, Ruff и pytest
+└── uv.lock             # Lockfile зависимостей
 ```
 
-## Next milestone
+## Следующий этап
 
-The next focused change can introduce Auth configuration and persistence.
-Registration, credentials, tokens, data models, and migrations remain outside
-the current scope.
+Следующий сфокусированный шаг после перехода на `uv` — продолжить Auth
+регистрацию: добавить пароль и хеширование либо подготовить infrastructure
+слой для PostgreSQL. Эти изменения должны идти отдельными PR.
