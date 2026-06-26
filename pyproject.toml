@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Учебный production-like backend-проект ForkFlow."
 requires-python = ">=3.12"
 dependencies = [
+    "argon2-cffi==25.1.0",
     "fastapi==0.115.12",
     "pydantic-settings==2.8.1",
     "uvicorn==0.34.0",
