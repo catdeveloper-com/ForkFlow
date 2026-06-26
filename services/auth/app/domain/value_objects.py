@@ -11,7 +11,7 @@ class Email:
     """Email-адрес пользователя.
 
     Value object нормализует адрес и защищает домен от заведомо некорректных
-    email-значений. Он не зависит от FastAPI, Pydantic или базы данных.
+    email-значений.
 
     Attributes:
         value: Нормализованный email-адрес.

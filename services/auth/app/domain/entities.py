@@ -9,9 +9,6 @@ from .value_objects import Email
 class User:
     """Пользователь Auth-сервиса.
 
-    Сущность описывает только доменные данные пользователя и не знает о
-    PostgreSQL, SQLAlchemy, FastAPI, JWT или сессиях.
-
     Attributes:
         id: Уникальный идентификатор пользователя.
         email: Email-адрес пользователя.
