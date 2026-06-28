@@ -63,7 +63,17 @@ make run-auth
 этапов проекта:
 
 - PostgreSQL: будущий source of truth для данных сервисов;
-- Redis: disposable cache и хранилище временного состояния.
+- Redis: disposable cache и хранилище временного состояния;
+- pgAdmin: веб-интерфейс для локальной работы с PostgreSQL.
+
+После `make up` pgAdmin доступен по адресу `http://localhost:5050`:
+
+- логин: `admin@forkflow.local`;
+- пароль: `123`.
+
+При добавлении PostgreSQL-сервера в pgAdmin используй хост `postgres`, порт
+`5432` и данные `FORKFLOW_POSTGRES_*` из `.env`. Эти простые учётные данные
+предназначены только для локальной разработки.
 
 Kafka, RabbitMQ, Celery, gateway, monitoring и дополнительные сервисы
 осознанно отложены до конкретного продуктового сценария.

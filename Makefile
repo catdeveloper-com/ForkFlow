@@ -34,7 +34,7 @@ test: ## Запустить тесты, если они есть.
 
 check: lint test ## Запустить линтер и тесты.
 
-up: ## Запустить локальные PostgreSQL и Redis.
+up: ## Запустить локальные PostgreSQL, Redis и pgAdmin.
 	$(COMPOSE) up -d
 
 down: ## Остановить локальную инфраструктуру.
