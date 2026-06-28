@@ -7,7 +7,7 @@ AUTH_MODULE := services.auth.app.main:app
 
 .DEFAULT_GOAL := help
 
-.PHONY: help setup install lint format test check up down logs run-auth
+.PHONY: help setup install lint format test check up down logs run-auth migrate-auth revision-auth
 
 help: ## Показать доступные команды.
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ {printf "%-12s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -34,7 +34,7 @@ test: ## Запустить тесты, если они есть.
 
 check: lint test ## Запустить линтер и тесты.
 
-up: ## Запустить локальные PostgreSQL и Redis.
+up: ## Запустить локальные PostgreSQL, Redis и pgAdmin.
 	$(COMPOSE) up -d
 
 down: ## Остановить локальную инфраструктуру.
@@ -45,3 +45,13 @@ logs: ## Читать логи локальной инфраструктуры.
 
 run-auth: ## Запустить health-check endpoint Auth-сервиса на порту 8000.
 	$(UV) run uvicorn $(AUTH_MODULE) --port 8000
+
+migrate-auth: ## Применить миграции Auth-сервиса.
+	$(UV) run alembic -c services/auth/alembic.ini upgrade head
+
+revision-auth: ## Создать миграцию Auth-сервиса: make revision-auth MESSAGE="описание".
+	@if [ -z "$(MESSAGE)" ]; then \
+		echo "Укажи MESSAGE: make revision-auth MESSAGE=\"описание\""; \
+		exit 1; \
+	fi
+	$(UV) run alembic -c services/auth/alembic.ini revision --autogenerate -m "$(MESSAGE)"
