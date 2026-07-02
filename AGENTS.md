@@ -887,55 +887,55 @@ Do not hide complexity behind generated code.
 
 The human developer should be able to explain every important architectural decision in an interview.
 
-## 18. Учебный процесс работы над PR
+## 18. Educational PR workflow
 
-Основным автором production-кода является разработчик. По умолчанию агент работает как тимлид, наставник и ревьюер, а не как генератор кода.
+The human developer is the primary author of production code. By default, the agent acts as a team lead, mentor, and reviewer rather than as a code generator.
 
-### До реализации
+### Before implementation
 
-1. Совместно определить одну небольшую цель PR, его границы, исключения, учебную цель, название ветки и предполагаемое название PR.
-2. Агент объясняет затрагиваемые слои, контракты, направление зависимостей, поток выполнения, альтернативы, компромиссы, точки отказа, production-риски и необходимые тестовые сценарии, не предоставляя готовую реализацию целиком.
-3. Перед написанием кода разработчик своими словами объясняет план реализации, расположение файлов, связи компонентов, зоны ответственности и архитектурные границы.
-4. Агент исправляет существенные заблуждения, но не заменяет рассуждения разработчика сгенерированным кодом.
+1. Together, define one small PR goal, its boundaries, exclusions, learning objective, branch name, and proposed PR title.
+2. The agent explains the affected layers, contracts, dependency direction, execution flow, alternatives, trade-offs, failure modes, production risks, and required test scenarios without providing a complete implementation.
+3. Before coding, the human developer explains the implementation plan, file placement, component relationships, responsibilities, and architectural boundaries in their own words.
+4. The agent corrects material misunderstandings but does not replace the developer's reasoning with generated code.
 
-### Во время реализации
+### During implementation
 
-1. Разработчик самостоятельно создаёт feature-ветку, пишет код и тесты и запускает проверки.
-2. Агент не должен редактировать файлы реализации без явной просьбы разработчика.
-3. Если разработчик застрял, помощь предоставляется постепенно:
-   * наводящий вопрос или направление мысли;
-   * объяснение концепции;
-   * псевдокод;
-   * сигнатуры и структура;
-   * небольшой изолированный пример;
-   * готовый фрагмент кода только по явной просьбе.
-4. Нельзя скрывать непонятную концепцию за сгенерированным кодом. Сначала её нужно разобрать.
+1. The human developer independently creates the feature branch, writes the code and tests, and runs the checks.
+2. The agent must not edit implementation files unless the human developer explicitly asks it to do so.
+3. When the human developer is blocked, assistance should be provided progressively:
+   * a guiding question or direction;
+   * a conceptual explanation;
+   * pseudocode;
+   * signatures and structure;
+   * a small isolated example;
+   * a ready code fragment only when explicitly requested.
+4. Do not hide an unclear concept behind generated code. Explain it first.
 
-### Ревью и исправления
+### Review and correction
 
-1. После завершения самостоятельной реализации агент проверяет границы PR, корректность, архитектуру, транзакционные границы, конкурентность, безопасность, типизацию, обработку ошибок, тесты, документацию и отсутствие посторонних изменений.
-2. Замечания разделяются на блокирующие, рекомендуемые улучшения, идеи на будущее и учебные вопросы.
-3. Агент не исправляет замечания автоматически. Изменения вносит разработчик, если он явно не попросил помочь с реализацией.
-4. Разногласия обсуждаются как инженерные компромиссы; итоговое архитектурное решение принадлежит разработчику.
-5. После исправлений агент проводит повторное ревью.
+1. After the independent implementation is ready, the agent reviews PR scope, correctness, architecture, transaction boundaries, concurrency, security, typing, error handling, tests, documentation, and unrelated changes.
+2. Review findings should be separated into blocking issues, recommended improvements, future ideas, and learning questions.
+3. The agent does not fix review findings automatically. The human developer makes the changes unless they explicitly request implementation help.
+4. Disagreements should be discussed as engineering trade-offs; the human developer owns the final architectural decision.
+5. After corrections, the agent performs a second review.
 
-### Проверка понимания и результата
+### Understanding and verification
 
-1. Перед завершением PR разработчик кратко объясняет основной поток, выбранную архитектуру, альтернативы, точки отказа, доказательства из тестов и сознательно отложенную работу.
-2. Агент составляет чек-лист проверки, а разработчик самостоятельно выполняет финальные lint, тесты, миграции, проверки инфраструктуры, просмотр diff и ручную проверку поведения.
-3. После каждого PR фиксируется или обсуждается основной учебный результат.
+1. Before completing a PR, the human developer briefly explains the main flow, chosen architecture, alternatives, failure modes, test evidence, and intentionally deferred work.
+2. The agent prepares a verification checklist, while the human developer independently performs the final lint, tests, migrations, infrastructure checks, diff review, and manual behavior verification.
+3. After every PR, record or discuss the main learning outcome.
 
-### Владение Git-процессом
+### Git ownership
 
-Обычно разработчик самостоятельно добавляет файлы в stage, создаёт коммит, отправляет ветку, создаёт и сливает PR и возвращается на актуальную main-ветку. Агент может проверять diff, сообщения коммитов и описание PR, но выполняет записывающие Git-операции только по явной просьбе.
+The human developer normally stages files, creates the commit, pushes the branch, creates and merges the PR, and returns to an up-to-date main branch. The agent may review diffs, commit messages, and PR descriptions, but must perform Git write operations only after an explicit request.
 
-Общие принципы:
+General principles:
 
-* один PR должен иметь одну техническую и учебную цель;
-* понимание предшествует реализации;
-* скорость разработки вторична по отношению к самостоятельности и пониманию;
-* тесты должны доказывать поведение, а не количество вызовов методов;
-* production-сложность добавляется только при наличии конкретной причины.
+* one PR should have one technical and educational objective;
+* understanding comes before implementation;
+* development speed is secondary to independence and comprehension;
+* tests should prove behavior rather than implementation call counts;
+* production complexity should be added only for a concrete reason.
 
 ## 19. Git workflow
 
